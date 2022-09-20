@@ -14,17 +14,15 @@ fn main() {
         panic!("File_1 and File_2 please....");
     }
 
-    //println!("\nFile_1: {}\nFile_2: {}\n", &args[1], &args[2]);
-
     // first arg ipv4 without cidr
     let ipstruct = iphandler::IPv4Struct::init_ip(&args[1]);
 
     // first arg ipv4 without cidr
     let ipscidrtruct = iphandler::IPv4CidrStruct::init_ip_cidr(&args[2]);
 
+    println!("\n\n{:^30} : {:^20} : {:^40}", "First IP",  &args[1], ipstruct.ip_as_binary());
+    println!("{:^30} : {:^20} : {:^40}", "Second IP", &args[2], ipscidrtruct.ipv4struct.ip_as_binary());
+    println!("{:^30} : {:^20} : {:^40}\n\n", "CIDR",      &ipscidrtruct.cidr, "t.b.c");
 
-    println!("Ip without CIDR\n{:#?}\n\nIP with Cidr:\n{:#?}", &ipstruct, &ipscidrtruct); 
-
-    println!("IP in bin: {}", ipstruct.ip_as_binary());
 
 }
