@@ -1,4 +1,11 @@
 
+/*
+ *
+ * todo: 
+ * - implemenmt optargs.
+ *
+ */
+
 pub fn usage(binary: &str) {
 
 	println!("\n{:_^80}\n", "CIDR Check");
