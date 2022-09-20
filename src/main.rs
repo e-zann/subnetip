@@ -4,7 +4,9 @@ use std::env;
 
 //cidrchk lib
 use cidrchk::cidrchklib::iphandler;
+
 use cidrchk::cidrchklib::iphandler::IPv4_as_binary;
+use cidrchk::cidrchklib::iphandler::IPv4Cidr;
 
 fn main() {
     
@@ -22,7 +24,9 @@ fn main() {
 
     println!("\n\n{:^30} : {:^20} : {:^40}", "First IP",  &args[1], ipstruct.ip_as_binary());
     println!("{:^30} : {:^20} : {:^40}", "Second IP", &args[2], ipscidrtruct.ipv4struct.ip_as_binary());
-    println!("{:^30} : {:^20} : {:^40}\n\n", "CIDR",      &ipscidrtruct.cidr, "t.b.c");
+    println!("{:^30} : {:^20} : {:^40}\n\n", "CIDR",      &ipscidrtruct.cidr, &ipscidrtruct.cidr_block());
 
+    println!("{:^30} : {:^40}", "Network Bits", &ipscidrtruct.net_host_bits(&ipscidrtruct.ipv4struct.ip_as_binary()).0);
+    println!("{:^30} : {:^40}", "Host Bits", &ipscidrtruct.net_host_bits(&ipscidrtruct.ipv4struct.ip_as_binary()).1);
 
 }

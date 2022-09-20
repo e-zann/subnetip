@@ -54,9 +54,12 @@ impl IPv4CidrStruct {
 
 
 pub trait IPv4_as_binary {
+    fn ip_as_binary (&self) -> String;
+}
 
-    fn ip_as_binary(&self) -> String;
-
+pub trait IPv4Cidr {
+    fn cidr_block   (&self) -> String;
+    fn net_host_bits(&self, ip_bin: &str) -> (String, String);
 }
 
 // the trait to handle IPs in dec to bin. 
@@ -67,4 +70,60 @@ impl IPv4_as_binary for IPv4Struct {
         ip_bin.to_string()
     }
 
+
+
+}
+
+
+
+impl IPv4Cidr for IPv4CidrStruct {
+
+    fn cidr_block(&self) -> String {
+
+        let mut cidr_bin_string : String = String::new();
+
+        for n in 0 .. 32 {
+            if n < self.cidr {
+                cidr_bin_string.push_str("1");
+            }
+            else if n == self.cidr {
+                cidr_bin_string.push_str("0");
+            }
+            else {
+                cidr_bin_string.push_str("0");
+            }
+        } 
+        cidr_bin_string
+    }
+
+    fn net_host_bits(&self, bin_ip: &str) -> (String, String) {
+
+        let mut net_bits  : String = String::new();
+        let mut host_bits : String = String::new();
+
+        for n in 0 .. 32 {
+            if n < self.cidr {
+                net_bits.push_str(&bin_ip.chars().nth(n.into()).unwrap().to_string());
+            }
+            else if n == self.cidr {
+                net_bits.push_str(".0");
+                
+            }
+            else {
+                net_bits.push_str("0");
+            }
+        }
+        for x in 0 .. 32 {
+            if x < self.cidr {
+                host_bits.push_str("0");
+            }
+            else if x == self.cidr {
+                host_bits.push_str(".1");
+            }
+            else {
+                host_bits.push_str("1");
+            }
+        }
+        (net_bits.to_string(), host_bits.to_string())
+    }
 }
