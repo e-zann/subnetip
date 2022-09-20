@@ -11,12 +11,14 @@ pub struct IPv4Struct {
 }
 
 
+
 #[derive(Debug,Clone,Copy)]
 pub struct IPv4CidrStruct {
     // Struct for IPv4 with CIDR notation.
     pub ipv4struct : IPv4Struct,
     pub cidr       : u8,
 }
+
 
 
 // Handle IPv4 without CIDR notation.
@@ -33,9 +35,8 @@ impl IPv4Struct {
             octed_3 : octeds[3].clone().parse::<u8>().unwrap(),
         }
     }
-
-    /*  end of impl */ 
 }
+
 
 
 // Handle IP/CIDR Types.
@@ -50,30 +51,31 @@ impl IPv4CidrStruct {
             cidr       : ip_cidr[1].clone().parse::<u8>().unwrap(),
         }
     }
-
-    /*  end of impl */ 
 }
 
 
+
+// trait definitions for type IPv4_as_binary.
 pub trait IPv4_as_binary {
     fn ip_as_binary (&self) -> String;
 }
 
+// trait definitions for type IPv4Cidr.
 pub trait IPv4Cidr {
     fn cidr_block   (&self) -> String;
     fn net_host_bits(&self, ip_bin: &str) -> (String, String);
 }
 
-// the trait to handle IPs in dec to bin. 
+
+
+// the trait to convert IPs from dec to bin. 
 impl IPv4_as_binary for IPv4Struct {
-    
+
+    // here we get the ip in binary format as a string string.
     fn ip_as_binary(&self) -> String {
         let ip_bin = format!("{:08b}{:08b}{:08b}{:08b}", self.octed_0, self.octed_1, self.octed_2, self.octed_3);
         ip_bin.to_string()
     }
-
-
-
 }
 
 
@@ -88,9 +90,6 @@ impl IPv4Cidr for IPv4CidrStruct {
             if n < self.cidr {
                 cidr_bin_string.push_str("1");
             }
-            else if n == self.cidr {
-                cidr_bin_string.push_str("0");
-            }
             else {
                 cidr_bin_string.push_str("0");
             }
@@ -98,6 +97,8 @@ impl IPv4Cidr for IPv4CidrStruct {
         cidr_bin_string
     }
 
+    // function to get the host bits and the network bits
+    // todo: 2 for loops... this is redundant code...
     fn net_host_bits(&self, bin_ip: &str) -> (String, String) {
 
         let mut net_bits  : String = String::new();
@@ -132,7 +133,7 @@ impl IPv4Cidr for IPv4CidrStruct {
 
 
 impl fmt::Display for IPv4Struct {
-
+    // the fmt trait to print an ip.
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "{}.{}.{}.{}", self.octed_0, self.octed_1, self.octed_2, self.octed_3)
     }

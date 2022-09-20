@@ -28,4 +28,15 @@ fn main() {
     println!("{:^25} : {:^35}"     , "Network Bits", &ipscidrtruct.net_host_bits(&ipscidrtruct.ipv4struct.ip_as_binary()).0);
     println!("{:^25} : {:^35}\n\n" , "Host Bits",    &ipscidrtruct.net_host_bits(&ipscidrtruct.ipv4struct.ip_as_binary()).1);
 
+    println!("\n[ !! ] - Checking IP...\n");
+
+    // lets check the ip against the subnet
+    if cidrchk::cidrchklib::compute::check_a_pair(&ipstruct.ip_as_binary(), &ipscidrtruct.ipv4struct.ip_as_binary(), &ipscidrtruct.cidr) {
+        println!("IP: {} is in Subnet: {}\n\n", &args[1], &args[2]);
+
+    }
+    else {
+        println!("IP: {} is NOT in Subnet: {}\n\n", &args[1], &args[2]);
+    }
+
 }
