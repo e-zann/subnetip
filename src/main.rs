@@ -1,19 +1,18 @@
 
 // std lib
 use std::env;
+use std::process;
 
-//cidrchk lib
-use cidrchk::cidrchklib::iphandler;
-
-use cidrchk::cidrchklib::iphandler::IPv4_as_binary;
-use cidrchk::cidrchklib::iphandler::IPv4Cidr;
+use cidrchk::cidrchklib::iphandler::{self, IPv4_as_binary, IPv4Cidr};
+use cidrchk::utils::help_funcs;
 
 fn main() {
     
     let args : Vec<String> = env::args().collect();
 
     if args.len() != 3 {
-        panic!("File_1 and File_2 please....");
+        help_funcs::usage(&args[0]);
+        process::exit(1);
     }
 
     // first arg ipv4 without cidr
