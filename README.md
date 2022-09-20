@@ -1,5 +1,5 @@
 # subnetip
 
-![alt text](https://github.com/e-zann/subnetip)
+![alt text](https://i.ibb.co/0XGwNfG/cidrchk-1.png)
 
-![alt text](https://github.com/e-zann/subnetip)
+![alt text](https://i.ibb.co/4VP8MsG/cidrchk-2.png)
