@@ -22,11 +22,11 @@ fn main() {
     // first arg ipv4 without cidr
     let ipscidrtruct = iphandler::IPv4CidrStruct::init_ip_cidr(&args[2]);
 
-    println!("\n\n{:^30} : {:^20} : {:^40}", "First IP",  &args[1], ipstruct.ip_as_binary());
-    println!("{:^30} : {:^20} : {:^40}", "Second IP", &args[2], ipscidrtruct.ipv4struct.ip_as_binary());
-    println!("{:^30} : {:^20} : {:^40}\n\n", "CIDR",      &ipscidrtruct.cidr, &ipscidrtruct.cidr_block());
+    println!("\n\n{:^25} : {:^35} : {:^35}" , "IP to Check", &args[1],           &ipstruct.ip_as_binary());
+    println!("{:^25} : {:^35} : {:^35}"     , "Subnet",      &args[2],           &ipscidrtruct.ipv4struct.ip_as_binary());
+    println!("{:^25} : {:^35} : {:^35}\n"   , "CIDR",        &ipscidrtruct.cidr, &ipscidrtruct.cidr_block());
 
-    println!("{:^30} : {:^40}", "Network Bits", &ipscidrtruct.net_host_bits(&ipscidrtruct.ipv4struct.ip_as_binary()).0);
-    println!("{:^30} : {:^40}", "Host Bits", &ipscidrtruct.net_host_bits(&ipscidrtruct.ipv4struct.ip_as_binary()).1);
+    println!("{:^25} : {:^35}"     , "Network Bits", &ipscidrtruct.net_host_bits(&ipscidrtruct.ipv4struct.ip_as_binary()).0);
+    println!("{:^25} : {:^35}\n\n" , "Host Bits",    &ipscidrtruct.net_host_bits(&ipscidrtruct.ipv4struct.ip_as_binary()).1);
 
 }

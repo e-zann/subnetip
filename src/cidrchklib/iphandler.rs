@@ -1,3 +1,5 @@
+use std::fmt;
+
 
 #[derive(Debug,Clone,Copy)]
 pub struct IPv4Struct {
@@ -127,3 +129,12 @@ impl IPv4Cidr for IPv4CidrStruct {
         (net_bits.to_string(), host_bits.to_string())
     }
 }
+
+
+impl fmt::Display for IPv4Struct {
+
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}.{}.{}.{}", self.octed_0, self.octed_1, self.octed_2, self.octed_3)
+    }
+
+}   
