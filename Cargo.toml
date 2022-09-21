@@ -8,3 +8,4 @@ writer  = "zann@arklab.dev"
 
 
 [dependencies]
+ansi_term = "0.12"
