@@ -10,24 +10,28 @@ use crate::cidrchklib::iphandler::{self, IPv4_as_binary, IPv4Cidr};
 
 pub fn ip_from_files(ip_file: &str, subnet_file: &str) {
 
-	let ip_list = File::open(&ip_file).unwrap();
-	let subnet_list = File::open(&subnet_file).unwrap();
+	let ip_list         = File::open(&ip_file).unwrap();
+	let subnet_list     = File::open(&subnet_file).unwrap();
+	let mut clean_file  = File::create("/home/andi/Documents/clean_ip_subnet.blklst").unwrap();
 
 	let mut ip_array : Vec<String> = BufReader::new(&ip_list).lines().map(|x| x.unwrap()).collect();
 	let start_count_ips = ip_array.len();
 
 	for subnet_line in BufReader::new(&subnet_list).by_ref().lines() {
-		
+
 		let mut found  = false;
 		let mut tmp_ip : String = String::new();
 		let tmp_subnet = String::from(subnet_line.unwrap());
 		let mut element = 0;
 
+		clean_file.write_all(tmp_subnet.as_bytes());
+		clean_file.write_all(b"\n");
+
 		for i in 0..(ip_array.len()) {
 
 			let tmp_ip : String = String::from(&ip_array[i].clone().to_string());
 
-			if ! &tmp_ip.starts_with(&tmp_subnet[0 as usize .. 2]) {
+			if ! &tmp_ip.starts_with(&tmp_subnet[0 as usize .. 1]) {
 					continue;
 			}
 
@@ -46,6 +50,11 @@ pub fn ip_from_files(ip_file: &str, subnet_file: &str) {
 	}
 
 	let end_count_ips = ip_array.len();
+
+	for ip in ip_array {
+		clean_file.write_all(ip.as_bytes());
+		clean_file.write_all(b"\n");
+	}
 
 	println!("\n\nStarted with an array of : {} IPs", &start_count_ips);
 	println!("Cleaned list has now     : {} IPs\n\n", &end_count_ips);
