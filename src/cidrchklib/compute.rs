@@ -12,5 +12,5 @@ pub fn check_a_pair(test_ip: &str, subnet_ip: &str, cidr_length: &u8) -> bool {
 		}
 	}
 
-	true
+	return true
 }
